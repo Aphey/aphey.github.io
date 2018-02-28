@@ -1,0 +1,229 @@
+﻿<!doctype html>
+<html>
+<head>
+<meta charset='utf-8'/>
+<link href='..\libs\css\preview\dark.css' rel='stylesheet'></link>
+<link href='..\libs\css\codeblock\dark.css' rel='stylesheet'></link>
+<title>MarkdownMate Preview</title>
+
+<script type='text/javascript' src='..\libs\highlight\highlight.pack.js'></script>
+<script type='text/javascript' src='..\libs\mm\mm_toc.js'></script>
+<script type='text/javascript' src='..\libs\jquery\jquery-1.11.3.min.js'></script>
+<script type='text/x-mathjax-config'>
+MathJax.Hub.Config({
+    showProcessingMessages: false,
+    tex2jax: { inlineMath: [['$','$'],['$$','$$']] },
+    TeX: { equationNumbers: {autoNumber: 'AMS'} },
+    messageStyle: 'none'
+});
+</script>
+<script>
+	var global_style="<style>*{font-family: 'Tahoma', 楷体;} code, pre, code>span, code>span>span, code>span>span>span, code>span>span>span>span{font-family: 'Courier New', 楷体;} </style>";
+	document.write( global_style );
+</script>
+</head>
+<body>
+<div id='content'>
+<ul>
+<li>POST: power on self testing 上电自检,开机自检这个过程就是把ROM里的指令映射到内存里.</li><li>RAM: Radom Access Memory.</li><li>ROM: Read only Memory.</li><li>外存设备包括光盘、硬盘、软盘、U盘.</li><li>BIOS: Basic Input/Output System 基础设备.</li><li>计算机五大元件: 控制器、运算器、存储器、输入设备、输出设备.</li><li>CPU核心: 寄存器、运算器、控制器.</li><li>CPU会每一段时间就查看I/O设备是不是有什么事件,这个行为叫POLL(轮询).</li><li>当I/O设备有事件时,通知CPU,这个行为叫interrupt(中断).</li><li>北桥芯片: 连接CPU和内存等等,可以理解为高速总线控制器.</li><li>南桥芯片: 连接大部分I/O设备的,可以理解为低速总线控制器;南桥连接I/O设备后通过一根线连接到北桥,由北桥转给CPU.</li><li>前端总线（FSB）就是负责将CPU连接到内存的总线.</li><li>CPU主频: 频率:单位时间内,某个事件发生的周期数.</li><li>API: 应用程序接口（Application Program Interface）,在不同的CPU上使用汇编语言而写出来的具有相同功能的程序.其实就是小虚拟机 比如java</li><li>总线,是复用的(一根总线,三种功能):<ul>
+<li>地址总线:内存寻址</li><li>数据总线:传输数据</li><li>控制总线:控制指令</li></ul>
+</li><li>OS 操作系统,是软件程序,出于通用目的,将底层计算机所提供的各种计算能力抽象为一种统一接口的程序;所以很多程序员都是面向操作系统编程的,通用目的:<ul>
+<li>硬件驱动:让硬件工作起来</li><li>进程管理: CPU时间片切割和分配</li><li>内存管理:将内存分段,比如给第一个程序分一段,给第二个程序分一段,但每个人的电脑内存大小是不定的,软件开发的时候就用虚拟地址空间,默认认为你有4G内存.实际程序占用的可能也就2M.</li><li>所有程序不能直接和硬件打交道,程序需要向内核请求系统调用(system call),可以从硬盘取出数据</li><li>网络管理</li><li>安全管理</li></ul>
+</li><li>32位CPU的总线宽度是32,能引用2的32次方个地址,也就是4G,所以32位系统只能识别4G内存;</li><li>我们把CPU的指令(指令集)分为特权指令和普通指令,特权拥有管理功能,只有操作系统运行特权指令;我们可以把CPU所能实行的指令集分成4个环,由内向外分为4个ring (ring0-ring3),所有特权指令都在ring0里,只有操作系统才有权限去运行,所有普通指令都在ring3上,出于历史原因,ring1和ring2没有启用.所以操作系统运行时可以运行ring0或者ring3的指令,应用程序只能运行ring3的指令,有些程序可能会做管理操作,比如和硬件打交道,mkdir;所有程序不能直接和硬件打交道,程序需要向内核请求系统调用(system call),可以从硬盘取出数据.</li><li>编程层次:<ol>
+<li>硬件规格: hardware specification;</li><li>系统调用: system call;</li><li>库调用: Library call,把非常多的底层功能整合起来,提供成离最终目标更近的功能就叫库.</li></ol>
+</li><li>一个程序的运行就意味着让它占据着CPU, 在CPU上自上而下地一条一条执行命令的.</li><li>用户和内核打交道也是要通过一个程序,这个程序叫用户接口UI(User Interface):<ul>
+<li>GUI: Graphic User Interface 图形用户接口</li><li>CLI: Command Line Interface 命令行接口</li></ul>
+</li><li>ABI: Application Binary Interface(应用二进制接口,运行接口,不同CPU支持的特性也可能不一样),是一种接口格式,是一种规范,比如windows运行的是exe格式或者msi;就算是unix和linux,他们的ABI可能也不一样.</li><li>API: 应用编程接口（Application Program Interface）,在不同的CPU上使用汇编语言而写出来的具有相同功能的程序.其实就是小虚拟机 比如java;不同操作系统运行程序格式不一样,但是编程接口却可以是一样的,也就意味我们以兼容模式在windows上写的源程序在linux上是兼容的,但是一旦编译转换成二进制格式,ABI不同就不能兼容了.</li><li>hash化,就是求数据的特征码,有了特征码,文件比对起来就特别快,hash计算的方式保存在为hash bucket,也就是分单元来保存,比如hash结果为十六进制数字,所有1开头放在一个位置,然后查找起来就非常快<h4>补充知识</h4>
+</li><li>硬件平台架构:<ul>
+<li>ARM 只生产知识产权,不生产设备,只设计芯片,一般用于手持设备.</li><li>x86 Intel或者AMD的32位的平台,32位是指大马路并行32车道流量走的多</li><li>x64 真正的64位是AMD的,Intel的其实是模拟出来的(现在已经是真的64位了),64位兼容32位</li></ul>
+</li><li>常用的OS操作系统:<ul>
+<li>windows</li><li>Linux</li><li>Unix<ul>
+<li>HP-UX</li><li>Solaris(SUN)</li><li>AIX(IBM)</li><li>SCO UNIX</li><li>Unixware</li></ul>
+</li></ul>
+</li><li>运行模式:<ul>
+<li>用户模式:也叫用户空间,user space,简写us</li><li>内核模式:system space,也叫内核空间,system mode</li></ul>
+</li><li>POS: portable Operating System 可移植操作系统规范, POSIX: IX是凑数的,定义的是API:编程接口</li><li>WINDOWS的运行程序格式是exe,库后缀是dll:dynamic link library</li><li>linux的运行程序格式是elf,库后缀是so: shared obeject</li><li>程序一般由两部分组成:指令和数据,指令就是占领CPU的指令,通常是只读的;数据是指令加工的对象,通常是可读写的.数据放在内存中.</li><li>库也罢,系统调用也罢,其实他们都是代码,允许被调用的程序:自己不提供数据,只提供指令,数据有调用者提供的.一句话来说库就是共享的你可以用,它也可以用所有人都可以用.</li><li>如果我们把库再抽象一层,以后再写程序时,就面对这样的层;这个层次就是某些特定的所谓高级语言提供的解释器或者虚拟机(比如java).</li><li>编程语言的层级:<ul>
+<li>汇编语言:微码编程 系统中某些与硬件相关的特有代码,比如驱动程序开发;</li><li>高级语言: C/C++,写系统级应用,比如mysql</li><li>高级语言: java,php,python,应用程序</li></ul>
+</li><li>linux不同发行版产生的原因:linux原始系统的安装非常繁杂,要安装内核,编译C库,安装sh等等,于是就有了不同组织把系统个性化进行发行</li><li>不同Linux软件管理系统,主流发行版本<ul>
+<li>Slackware <ul>
+<li>SUSE: 德国的,被Novell收购;<ul>
+<li>SUSE和OpenSUSE(大家都懂的)</li></ul>
+</li></ul>
+</li><li>Debian: dpt,dpkg,网上技术员自发维护,入门比红帽难得多.<ul>
+<li>Ubuntu:基于Debian发行,界面很漂亮,适用于个人Desktop.<ul>
+<li>Mint:基于Ubuntu发行,比Ubuntu还漂亮.</li></ul>
+</li></ul>
+</li><li>Redhat: rpm(9.0是个人版,6.0是企业版RHEL,redhat enterprise linux)<ul>
+<li>RHEL,redhat enterprise linux,红帽企业版,18个月发行一个版本,主要卖服务的. </li><li>Federa: Redhat 把个人版捐给了Federa,测试新软件,一般6个月发一个心版本.</li><li>CentOS: Community Enterprise OS(红帽社区版),完全兼容RHEL,除了图片和界面,基本一样,RHEL已经收购了CentOS.</li><li>Mandriva: 界面很漂亮,一般用于个人桌面.</li><li>etc.</li></ul>
+</li></ul>
+</li><li>GPL协议有GPLv2,GPLv3,之前的GPL有点流毒无穷的意思,就是只要你的代码里用了别人开源的代码(不管多少),你的也必须开源,太过苛刻,让很多人不能接受的,于是后面就出了相对宽松的LGPL(lesser),但是GPL已经深入程序员之心了,很多程序吸取了GPL的教训,他们的协议让程序员非常愿意使用,只要你承认代码是他们的即可,你的产品不开源也可以.比如:<ul>
+<li>Apache的开源协定</li><li>BSD协定</li></ul>
+</li><li>自由软件:<ul>
+<li>自由使用</li><li>自由学习和修改</li><li>自由分发:自由创建衍生版本</li></ul>
+</li><li>Linux基本原则(哲学思想)<ul>
+<li>由目的单一的小程序组成,一个程序只实现一个功能组合小程序完成复杂任务.</li><li>一切皆文件.</li><li>尽量避免捕获用户接口(不跟用户交互),目标:实现脚本编程,自动完成某些功能.</li><li>配置文件保存为纯文本格式;目标在于:一款合用的文本编辑器技能完成系统配置文件.</li></ul>
+</li><li><p>终端:用户与主机交互,必然用到的设备,就叫终端设备,终端有多种类型:</p>
+<ul>
+<li>物理终端:直接接入本机的显示器,键盘设备,物理终端也叫控制台;显示的设备文件路径为:/dev/console</li><li>虚拟终端:附加在物理终端上的以软件方式虚拟实现的终端,CentOS 6默认启动的是6个,切换方式是CTRL+ALT+{F1..F6};可以理解为是系统模拟的分屏器;一般来讲,我们系统启动起来我们都是从虚拟终端1登入. 如果默认启动的是图形界面,那么启动的就是图形终端.图形终端:也是附加在物理终端上的以软件方式虚拟实现的终端,但额外提供桌面环境.是虚拟终端的一种:CTRL+ALT+F7,可以切换到图形终端,前提是图形终端启动过一次;显示的设备文件路径为:/dev/tty{1..6};<code>TeleTYpe</code></li><li>模拟终端: 附加在图形终端或者远程终端至上的,比如在图形界面中右击打开&quot;在终端中打开&quot;后打开的界面;或者基于ssh协议或者telnet协议等远程打开的终端;显示的设备文件路径为:/dev/pts/{0..∞};<code>pseudo-terminal master and slave</code></li><li><p><code>tty</code>命令,即可查看当前所在的终端</p>
+<pre><code>  [root@mail ~]# tty
+  /dev/pts/1
+</code></pre></li></ul>
+</li><li>交互式接口:启动终端后,在终端设备附加一个交互式应用程序:<ul>
+<li>Linux图形界面GUI<ul>
+<li>命令启动方法: # startx &amp;</li><li>图形界面的类型:<ul>
+<li>GNOME: C开发的</li><li>KDE: C++</li><li>XFce</li></ul>
+</li></ul>
+</li><li>Linux命令界面CLI: <code>echo $SHELL</code> 可以查看当前shell;<code>cat /etc/shells</code>,可以查看当前系统使用的所有shell<ul>
+<li>sh 默认shell,bourn开发的)</li><li>bash bourn again shell遵循GPL)</li><li>zsh</li><li>ksh</li><li>tcsh (cshell升级版本)</li></ul>
+</li></ul>
+</li><li>Linux切换用户命令: <code>su</code></li><li>命令类型:内置命令(shell内置)和外部命令(在文件系统的某一个路径下与命令名称相应的可执行文件,别名除外)</li><li>区别命令是内部还是外部的命令<code>type</code>:显示命令属于那种类型;<code>type COMMAND</code></li><li>命令选项中括号的意思<ul>
+<li style="list-style: none"><input type="checkbox" disabled> 表示可选</li><li>| 表示多选一或者多选</li><li>&lt; &gt; 表示必选    </li><li>... 可以出现多次</li><li>{ } 表示分组</li></ul>
+</li><li>命令的选项:开启或关闭命令的某些功能,Unix以前有systemv 和BSD俩分支,system必须要加<code>-</code>,BSD可以不加</li><li>LSB:Linux Standard Base</li><li>获得命令帮助:<ul>
+<li>内部命令:<ul>
+<li>help COMMAND 比如 help cd,这是最简洁的方式</li><li>COMMAND -h 这个不常用</li></ul>
+</li><li>外部命令:<ul>
+<li>COMMAND --help 大多数命令都支持</li></ul>
+</li><li>通用方法:命令手册:manual(/usr/share/doc)<ul>
+<li>man COMMAND 几乎所有命令都通用的</li><li>info COMMAND 同上,info会介绍命令的历史发展等等,在线手册</li><li>man是有章节的,常见有8个,man可以指定章节的,如果不指定,则按第一次出现的章节.whatis COMMAND可以查看命令所在的章节<ol>
+<li>用户命令,所有用户可以使用的命令(/bin,/usr/bin,/usr/local/bin)</li><li>系统调用</li><li>库用户调用(只有库文件才有)</li><li>特殊文件(设备文件)</li><li>文件格式(配置文件的语法)</li><li>游戏</li><li>杂项:miscellaneous [,mɪsə&#39;leɪnɪəs]</li><li>管理命令(/sbin,/usr/sbin,/usr/local/sbin)</li></ol>
+</li></ul>
+</li><li>man命令的配置文件/etc/man.config,在这个配置文件中有一条参数是<code>MANPATH</code>,指明了到哪里去找man命令帮助手册的. </li><li>man COMMAND中各段内容:(CentOS6 路径/usr/share/man里)<ul>
+<li>NAME:命令名称及功能简要说明</li><li>SYNOPSIS:用法说明,包括可用的选项</li><li>DESCRIPTION:命令功能的详尽说明,可能包括每一个选项的意义</li><li>OPTIONS:说明每一个选项的意义</li><li>FILES:此命令相关的配置文件</li><li>BUGS:bug报告</li><li>EXAMPLES:使用示例</li><li>SEE ALSO:另鉴</li></ul>
+</li><li>翻屏:<ul>
+<li>向后翻屏:SPACE</li><li>向前翻屏:b</li><li>向后翻半屏:d</li><li>向前翻半屏:u</li><li>向后翻一行:Enter</li><li>向前翻一行:k</li></ul>
+</li><li>跳转:<ul>
+<li>1G:回到文件首部</li><li>G:跳转到文件尾部</li></ul>
+</li><li>查找:<ul>
+<li>/keyword: 自前向后<ul>
+<li>n:下一个</li><li>N:前一个</li></ul>
+</li><li>?keyword:自后向前<ul>
+<li>n:下一个</li><li>N:前一个</li></ul>
+</li></ul>
+</li><li>q:退出手册</li></ul>
+</li><li>linux中有成千上万个命令,当某个命令第一次执行的时候,系统是实时查找的,然后会放在缓存中,我们可以通过hash命令查看.但是如果缓存中命令的路径发生了改变,我们再次使用这个命令时,系统会提示这个命令不存在.比如<pre><code>  [root@mail ~]# ls   // 执行正常
+  @                               Desktop      install.log.syslog  Templates
+  anaconda-ks.cfg                 Documents    Music               Videos
+  courier-authlib-0.65.0          Downloads    Pictures
+  courier-authlib-0.65.0.tar.bz2  install.log  Public
+  [root@mail ~]# hash // hash命中
+  hits    command
+     1    /usr/bin/tty
+     1    /bin/date
+     1    /bin/mv
+     1    /usr/bin/man
+     3    /usr/sbin/ntpdate
+     1    /usr/bin/ls
+  [root@mail ~]# mv /usr/bin/ls /bin/ls   //我们更改ls的路径 
+  [root@mail ~]# ls   //这时候系统是根据缓存中的/usr/bin/ls来执行的,所以执行不了
+  -bash: /usr/bin/ls: No such file or directory
+  [root@mail ~]# hash -r  // -r清空所有hash记录, -d RECORD 删除某一个记录
+  [root@mail ~]# hash
+  hash: hash table empty
+</code></pre></li><li>命令历史:<ul>
+<li>登录shell时,会读取命令历史文件中记录下的命令:~/.bash_history</li><li>登录进shell后新执行的命令只会记录在缓存中, 用户登出时会自动追加到~/.bash_history</li><li>上下光标可以查看历史命令</li><li>history命令可以查看历史命令<ul>
+<li>-a:追加本次会话所执行的命令到历史记录中</li><li>-c:清除历史命令</li><li>-d 数字: 表示删除第该数字个历史命令</li><li>-d 500 10: 表示删除第499个后面的10个命令</li><li>-w:将历史命令保存到历史命令的文件中/root/.bash_history</li><li>$HISTSIZE: 表示默认的保存历史命令的条数,系统默认是1000</li><li>$HISTFILESIZE:定义了在 .bash_history 中保存命令的记录总数</li></ul>
+</li><li>命令历史的使用技巧:<ul>
+<li>!n:执行历史命令中的第n条</li><li>!-n:执行历史命令中的倒数第n条</li><li>!!:执行上一条命令</li><li>!man:执行历史命令中以man开头的命令</li><li>!$:引用上一个命令最后一个参数,比如nano !$;此命令可以换成(按紧ESC键再按.)</li></ul>
+</li></ul>
+</li><li>命令date:时间管理<ul>
+<li>ntp net time protcol</li><li>时间和时间戳之间转换<pre><code>  A.将日期转换为Unix时间戳
+  将当前时间以Unix时间戳表示：
+    1. date +%s
+  输出如下：
+  1361542433
+  转换指定日期为Unix时间戳：
+    1. date -d &#39;2013-2-22 22:14&#39; +%s
+  输出如下：
+  1361542440
+  B.将Unix时间戳转换为日期时间
+  不指定日期时间的格式：
+    1. date -d @1361542596
+  输出如下：
+  Fri Feb 22 22:16:36 CST 2013
+  指定日期格式的转换：
+    1. date -d @1361542596 +&quot;%Y-%m-%d %H:%M:%S&quot;
+  输出如下：
+  2013-02-22 22:16:36
+</code></pre></li></ul>
+</li><li>Linux: rtc(real time clock)硬件时间;linux有两个时间,一个是硬件时间(clock可以查看或者hwclock),和系统始终(软件模拟晶体震荡计时)</li><li>命令hwclock:显示硬件时间<ul>
+<li>-w:system time to hardware(system time is shown by date cmd)</li><li>-s:hardware time to system</li><li>-r:read the hardware time</li></ul>
+</li><li>命令cal:calendar    查看日历</li></ul>
+<h4>常用命令:</h4>
+<ul>
+<li>命令cd:change directory 切换目录<ul>
+<li>cd不加任何参数,则进入当前用户的家目录</li><li>cd ~ 可以进入家目录</li><li>管理员可以通过cd ~用户名 可以进入对应用户的家目录</li><li>cd - 在当前目录和前一次所在目录之间来回切换;相当于 <code>cd $OLDPWD</code></li></ul>
+</li><li>相关环境变量:<ul>
+<li>PWD: 保存了当前的目录路径</li><li>OLDPWD: 上一次所在目录路径</li></ul>
+</li><li>stat FILENAME 查看一个文件的状态,元数据(文件名,大小,时间戳等等)</li><li>命令:file(查看文件内容类型),ELF:Executable and Linkable Format，可执行连接格式</li><li><p>命令:echo,回显命令,常用选项:</p>
+<ul>
+<li>-n: 禁止自动添加换行符号<pre><code>  [root@mail man1]# echo  &quot;Hello.&quot;
+  Hello.
+  [root@mail man1]# echo -n &quot;Hello&quot;
+  Hello[root@mail man1]#
+</code></pre></li><li>-e: 允许使用转义符<code>\</code><ul>
+<li><code>\t</code> 制表符</li><li><code>\n</code> 换行</li><li><code>\b</code> 回删一个字符<h4>文件系统</h4>
+</li></ul>
+</li></ul>
+</li><li><p>rootfs:根文件系统</p>
+</li><li>/boot:系统启动的相关文件,如内核,initrd(CentOS6为initramfs)和 vmlinuz-2.6.32-431.el6.x86_64,它们是系统启动时要用到的内核,以及Grub</li><li>/dev:device 设备文件<ul>
+<li>块设备:随机设备,随机访问.无所谓顺序的访问读取的,比如硬盘.</li><li>字符设备:线性设备,线性访问,有秩序的,按字符位单位,一个字符一个字符输入和读取的,鼠标键盘和显示器都是线性的设备.</li></ul>
+</li><li>当我们 ll /dev的时候我们会发现一些文件的名称显示很特别,表现为黑底黄字,他们也不显示文件的大小,而表现为逗号隔开的两个数字(主设备号major和次设备号Minior),只有元数据,作为文件的访问入口.</li><li>/etc 配置文件存放位置<ul>
+<li>/etc/opt 为安装在/opt目录中的程序提供配置文件</li><li>/etc/X11 专门为X协议提供配置文件</li></ul>
+</li><li>/home:用户的家目录,默认为/home/USERNAME;root用户的家目录为/root,unix上的root是没有家目录的.</li><li>/lib:library 库文件及内核模块文件(/lib/modules);库文件分为两种<ul>
+<li>静态库: linux上表现为.a,windows上为.la;静态库是直接链接到程序的地址空间中去,而且是作为程序的一部分而运行,所以静态库便于单个文件的管理</li><li>动态库: windows为 dll,linux为so(shared object);任何程序和数据只有载入内存才能被使用,共享库的好处就在于第一个程序启动以后,如果用到某个共享库,它会把这个共享库载入到内存使用,当启动第二个程序,也要用到这个共享库,那么第二个程序就不需要再载入这个共享库了.</li></ul>
+</li><li>/lib64 专用于x86_64系统上的辅助文件.64位系统兼容32为程序,如果64位程序,库文件一般都会放在这个目录下. </li><li>/media 和 /mnt 挂载点目录;media通常用于挂载移动设备,比如光盘,U盘,而/mnt则是用来挂载额外的临时系统;其实挂载都没有严格规定.</li><li>/misc: 杂项,很少用</li><li>/opt: optional 可选目录,早期用于安装第三方软件.比如早期 oracle等等,现在约定俗成放在/usr/local下了</li><li>/proc:伪文件系统,这个目录其实是空的,系统启动就不是空的,这里显示的其实是内核的映射文件.非常重要的目录.</li><li>/sys:另外一个伪文件系统,一般跟硬件设备相关的属性映射文件,一般用于硬件管理.关机后也是空的.</li><li>/tmp:temporary,临时文件.一般而言,里面某个文件一个月内没有被访问过会被自动删除,这个目录所有人都能创建文件,但只能删除自己的文件.</li><li>/var:variable 可变化数据文件,其中的run/子目录,每一个进程的进程号一般都储存在这个目录里.<ul>
+<li>cache: 应用程序缓存数据目录</li><li>lib: 应用程序状态信息数据</li><li>local: 专用于为/usr/local下的应用程序存储可变数据</li><li>lock: 应用程序的锁文件</li><li>log: 日志目录及文件</li><li>opt: 专用于为/usr/local下的应用程序存储可变数据 </li><li>run: 运行中的进程相关数据,通常用于存放程序的pid</li><li>spool: 应用程序数据池,缓冲池</li><li>tmp: 专用于存放系统两次重启之间的临时文件 </li></ul>
+</li><li>/bin:binary 可执行文件,用户命令,供所有用户使用的基本命令,不能关联到独立分区,系统启动就会用到的命令.</li><li>/sbin:管理命令,供所有用户使用的基本命令,不能关联到独立分区,系统启动就会用到的命令.</li><li>/usr:universal shared readonly, 全局共享只读数据;也有人翻译成 unix system resource<ul>
+<li>/usr/bin 所有用户都能用,保证系统拥有完整功能而提供的应用程序</li><li>/usr/sbin    管理用户使用,保证系统拥有完整功能而提供的应用程序</li><li>/usr/lib</li><li>/usr/lib64 它们的配置文件依然在/etc/下    </li><li>/usr/local    //本地层级结构,系统刚安装完是空的,用来安装第三方程序<ul>
+<li>/usr/local/bin</li><li>/usr/local/sbin</li><li>/usr/local/lib</li></ul>
+</li><li>/usr/include C程序用到的头文件,用来描述库文件的方式;通常以.h结尾.</li><li>/usr/share 结构化独立数据</li></ul>
+</li><li>X11R6 ,Realease Version 6 Xwindow系统版本11第6次发行</li><li>seliux: security enhanced Linux, selinux相关的安全策略等信息的存储位置 </li><li>应用程序的组成部分:<ul>
+<li>二进制程序: /bin,/sbin,/usr/bin,/usr/sbin,/usr/local/bin,/usr/local/sbin</li><li>库文件: /lib,/lib64,/usr/lib,/usr/lib64,/usr/local/lib,/usr/local/lib64</li><li>配置文件: /etc,/etc/DIRECTORY,/usr/local/etc</li><li>帮助文件: /usr/share/man,/usr/share/doc,/usr/local/share/man,/usr/local/share/doc</li></ul>
+</li><li>文件类型:<ul>
+<li>-:普通文件(f)</li><li>d:目录文件</li><li>b:块设备文件(block)</li><li>c:字符设备文件(character)</li><li>l:链接文件或者软连接文件(symbolic link file)</li><li>p:命令管道(pipe)</li><li>s:套接字文件(socket)</li></ul>
+</li><li>关机或重启:<code>halt</code>,<code>shutdown</code>,<code>reboot</code>共同选项:<ul>
+<li>-f: 强制,不调用shutdown</li><li>-p: 切断电源</li></ul>
+</li><li><code>shutdown [OPTION]  TIME [MESSAGE]</code>,必须加时间(now;+30:30分钟以后执行操作;hh:mm指定一定时间点来执行操作,Message是通知所有终端)<ul>
+<li>-r: reboot 重启</li><li>-h: halt 关机</li><li>-c: 取消关机操作<h4>Bash基础特性</h4>
+</li></ul>
+</li><li>程序只有一个,进程可以有多个,在没个进程看来,当前主机上只存在内核和当前进程;进程是程序的副本,进程也是程序的实例.</li><li>linux允许一个账号登陆多次,彼此之间互不相干.</li><li>命令行编辑:<ul>
+<li>光标跳转:<ul>
+<li>CTRL+A: 跳到命令行首</li><li>CTRL+E: 跳到命令行尾</li><li>CTRL+D: 删除(剪切)光标后面的一个字符</li><li>CTRL+U: 删除(剪切)光标前面的全部字符</li><li>CTRL+K: 删除(剪切)光标后面的全部字符</li><li>CTRL+Y: 粘贴</li><li>CTRL+左右光标: 可以切换到前(后)一个单词</li><li>CTRL+L:清屏</li></ul>
+</li></ul>
+</li><li>命令历史:<ul>
+<li>登录shell时,会读取命令历史文件中记录下的命令:~/.bash_history</li><li>登录进shell后新之星的命令只会记录在缓存中, 用户登出时会自动追加到~/.bash_history</li><li>上下光标可以查看历史命令</li><li>history命令可以查看历史命令<ul>
+<li>-a:追加本次回话所执行的命令到历史记录中 </li><li>-c:清除历史命令</li><li>-d 数字: 表示删除第该数字个历史命令</li><li>-d 500 10: 表示删除第499个后面的10个命令</li><li>-w:将历史命令保存到历史命令的文件中/root/.bash_history</li><li>$HISTSIZE: 表示默认的保存历史命令的条数,系统默认是1000</li><li>$HISTFILESIZE:定义了在 .bash_history 中保存命令的记录总数</li><li>$HISTFILE: ~/.bash_history<ul>
+<li>环境变量$HISCTRL:控制命令历史的记录方式</li></ul>
+</li><li>ignoredups:忽略重复的命令(连续且相同)</li><li>ignorespace:忽略以空格开始的命令</li><li>ignoreboth:上面两者兼有</li></ul>
+</li><li>命令历史的使用技巧:<ul>
+<li>!n:执行历史命令中的第n条</li><li>!-n:执行历史命令中的倒数第n条</li><li>!!:执行上一条命令</li><li>!man:执行历史命令中以man开头的命令</li><li>!$:引用上一个命令最后一个参数,比如nano !$;此命令可以换成(先按ESC键再按.)</li></ul>
+</li></ul>
+</li><li>命令补全:<ul>
+<li>tab键,前提是PATH环境设置正常,这个操作是在环境变量的路径下搜索补全的.</li></ul>
+</li><li>路径补全:<ul>
+<li>tab键:是在你已经输入的字母打头的路径下搜索</li></ul>
+</li><li>命令别名:<ul>
+<li>alias CMDALIAS=COMMAND [options],等号后面有空格的话请把等号后面的全部内容用单引号引起来</li><li>alias 可以查看当前系统中定义的所有别名.有些别名只是定义了别名加选项,当我们要执行命令本身时,只要用COMMAND即可.</li><li>unalias CMDALIAS 取消别名</li></ul>
+</li><li>命令替换:要把命令替换成命令的执行结果,把命令中某个子命令替换为其执行结果的过程<ul>
+<li>例1:echo &quot;the current directory is <strong><em>$(pwd)</em></strong>&quot;</li><li>或者:echo &quot;the current directory is <strong><em>`pwd`</em></strong> &quot;</li><li>例2: touch ./file-$(date +%F-%H-%M-%S)</li></ul>
+</li><li>bash支持的引号:<ul>
+<li>``:命令替换;</li><li>&quot;&quot;:弱引用,重要表现是可以实现变量替换;</li><li>&#39;&#39;:强引用,不完成变量替换.</li></ul>
+</li></ul>
+</div>
+<script>
+function MathJaxDone(){
+	window.status='ready';
+}
+window.status='ready';
+hljs.initHighlightingOnLoad();
+var tocs = document.getElementsByTagName('toc');
+var tocs=$("*[name='toc']");
+if( tocs.length ){
+	var toc=generated_toc.generate('content');
+	tocs.each(function(){
+		$(this).html( toc );
+	});
+}
+</script>
+</body>
+</html>
