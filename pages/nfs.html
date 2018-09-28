@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+  <html>
+    <head>
+      <title> NFS网络文件共享系统</title>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      
+      <link rel="stylesheet" href="file:///..\css\katex.min.css">
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+
+      <style> 
+      /* http://prismjs.com/download.html?themes=prism-coy&languages=markup+css+clike+javascript+abap+actionscript+ada+apacheconf+apl+applescript+asciidoc+aspnet+autoit+autohotkey+bash+basic+batch+c+brainfuck+bro+bison+csharp+cpp+coffeescript+ruby+css-extras+d+dart+django+diff+docker+eiffel+elixir+erlang+fsharp+fortran+gherkin+git+glsl+go+graphql+groovy+haml+handlebars+haskell+haxe+http+icon+inform7+ini+j+jade+java+jolie+json+julia+keyman+kotlin+latex+less+livescript+lolcode+lua+makefile+markdown+matlab+mel+mizar+monkey+nasm+nginx+nim+nix+nsis+objectivec+ocaml+oz+parigp+parser+pascal+perl+php+php-extras+powershell+processing+prolog+properties+protobuf+puppet+pure+python+q+qore+r+jsx+reason+rest+rip+roboconf+crystal+rust+sas+sass+scss+scala+scheme+smalltalk+smarty+sql+stylus+swift+tcl+textile+twig+typescript+vbnet+verilog+vhdl+vim+wiki+xojo+yaml */
+/**
+ * prism.js Coy theme for JavaScript, CoffeeScript, CSS and HTML
+ * Based on https://github.com/tshedor/workshop-wp-theme (Example: http://workshop.kansan.com/category/sessions/basics or http://workshop.timshedor.com/category/sessions/basics);
+ * @author Tim  Shedor
+ */
+
+code[class*="language-"],
+pre[class*="language-"] {
+	color: black;
+	background: none;
+	font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+	text-align: left;
+	white-space: pre;
+	word-spacing: normal;
+	word-break: normal;
+	word-wrap: normal;
+	line-height: 1.5;
+
+	-moz-tab-size: 4;
+	-o-tab-size: 4;
+	tab-size: 4;
+
+	-webkit-hyphens: none;
+	-moz-hyphens: none;
+	-ms-hyphens: none;
+	hyphens: none;
+}
+
+/* Code blocks */
+pre[class*="language-"] {
+	position: relative;
+	margin: .5em 0;
+	box-shadow: -1px 0px 0px 0px #358ccb, 0px 0px 0px 1px #dfdfdf;
+	border-left: 10px solid #358ccb;
+	background-color: #fdfdfd;
+	background-image: linear-gradient(transparent 50%, rgba(69, 142, 209, 0.04) 50%);
+	background-size: 3em 3em;
+	background-origin: content-box;
+	overflow: visible;
+	/* padding: 0; */
+
+	padding-top: 1em;
+    padding-bottom: 1em;
+}
+
+code[class*="language"] {
+	max-height: inherit;
+	height: 100%;
+	padding: 0 1em;
+	display: block;
+	overflow: auto;
+}
+
+/* Margin bottom to accomodate shadow */
+:not(pre) > code[class*="language-"],
+pre[class*="language-"] {
+	background-color: #fdfdfd;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	margin-bottom: 1em;
+}
+
+/* Inline code */
+:not(pre) > code[class*="language-"] {
+	position: relative;
+	padding: .2em;
+	border-radius: 0.3em;
+	color: #c92c2c;
+	border: 1px solid rgba(0, 0, 0, 0.1);
+	display: inline;
+	white-space: normal;
+}
+
+pre[class*="language-"]:before,
+pre[class*="language-"]:after {
+	content: '';
+	z-index: -2;
+	display: block;
+	position: absolute;
+	bottom: 0.75em;
+	left: 0.18em;
+	width: 40%;
+	height: 20%;
+	max-height: 13em;
+	box-shadow: 0px 13px 8px #979797;
+	-webkit-transform: rotate(-2deg);
+	-moz-transform: rotate(-2deg);
+	-ms-transform: rotate(-2deg);
+	-o-transform: rotate(-2deg);
+	transform: rotate(-2deg);
+}
+
+:not(pre) > code[class*="language-"]:after,
+pre[class*="language-"]:after {
+	right: 0.75em;
+	left: auto;
+	-webkit-transform: rotate(2deg);
+	-moz-transform: rotate(2deg);
+	-ms-transform: rotate(2deg);
+	-o-transform: rotate(2deg);
+	transform: rotate(2deg);
+}
+
+.token.comment,
+.token.block-comment,
+.token.prolog,
+.token.doctype,
+.token.cdata {
+	color: #7D8B99;
+}
+
+.token.punctuation {
+	color: #5F6364;
+}
+
+.token.property,
+.token.tag,
+.token.boolean,
+.token.number,
+.token.function-name,
+.token.constant,
+.token.symbol,
+.token.deleted {
+	color: #c92c2c;
+}
+
+.token.selector,
+.token.attr-name,
+.token.string,
+.token.char,
+.token.function,
+.token.builtin,
+.token.inserted {
+	color: #2f9c0a;
+}
+
+.token.operator,
+.token.entity,
+.token.url,
+.token.variable {
+	color: #a67f59;
+	background: rgba(255, 255, 255, 0.5);
+}
+
+.token.atrule,
+.token.attr-value,
+.token.keyword,
+.token.class-name {
+	color: #1990b8;
+}
+
+.token.regex,
+.token.important {
+	color: #e90;
+}
+
+.language-css .token.string,
+.style .token.string {
+	color: #a67f59;
+	background: rgba(255, 255, 255, 0.5);
+}
+
+.token.important {
+	font-weight: normal;
+}
+
+.token.bold {
+	font-weight: bold;
+}
+.token.italic {
+	font-style: italic;
+}
+
+.token.entity {
+	cursor: help;
+}
+
+.namespace {
+	opacity: .7;
+}
+
+@media screen and (max-width: 767px) {
+	pre[class*="language-"]:before,
+	pre[class*="language-"]:after {
+		bottom: 14px;
+		box-shadow: none;
+	}
+
+}
+
+/* Plugin styles */
+.token.tab:not(:empty):before,
+.token.cr:before,
+.token.lf:before {
+	color: #e0d7d1;
+}
+
+/* Plugin styles: Line Highlight */
+pre[class*="language-"][data-line] {
+	padding-top: 0;
+	padding-bottom: 0;
+	padding-left: 0;
+}
+pre[data-line] code {
+	position: relative;
+	padding-left: 4em;
+}
+pre .line-highlight {
+	margin-top: 0;
+}
+html body{font-family:"Helvetica Neue",Helvetica,"Segoe UI",Arial,freesans,sans-serif;font-size:16px;line-height:1.6;color:#333;background-color:#fff;overflow:initial;box-sizing:border-box;word-wrap:break-word}html body>:first-child{margin-top:0}html body h1,html body h2,html body h3,html body h4,html body h5,html body h6{line-height:1.2;margin-top:1em;margin-bottom:16px;color:#000}html body h1{font-size:2.25em;font-weight:300;padding-bottom:.3em}html body h2{font-size:1.75em;font-weight:400;padding-bottom:.3em}html body h3{font-size:1.5em;font-weight:500}html body h4{font-size:1.25em;font-weight:600}html body h5{font-size:1.1em;font-weight:600}html body h6{font-size:1em;font-weight:600}html body h1,html body h2,html body h3,html body h4,html body h5{font-weight:600}html body h5{font-size:1em}html body h6{color:#5c5c5c}html body strong{color:#000}html body del{color:#5c5c5c}html body a:not([href]){color:inherit;text-decoration:none}html body a{color:#08c;text-decoration:none}html body a:hover{color:#00a3f5;text-decoration:none}html body img{max-width:100%}html body>p{margin-top:0;margin-bottom:16px;word-wrap:break-word}html body>ul,html body>ol{margin-bottom:16px}html body ul,html body ol{padding-left:2em}html body ul.no-list,html body ol.no-list{padding:0;list-style-type:none}html body ul ul,html body ul ol,html body ol ol,html body ol ul{margin-top:0;margin-bottom:0}html body li{margin-bottom:0}html body li.task-list-item{list-style:none}html body li>p{margin-top:0;margin-bottom:0}html body .task-list-item-checkbox{margin:0 .2em .25em -1.8em;vertical-align:middle}html body .task-list-item-checkbox:hover{cursor:pointer}html body blockquote{margin:16px 0;font-size:inherit;padding:0 15px;color:#5c5c5c;border-left:4px solid #d6d6d6}html body blockquote>:first-child{margin-top:0}html body blockquote>:last-child{margin-bottom:0}html body hr{height:4px;margin:32px 0;background-color:#d6d6d6;border:0 none}html body table{margin:10px 0 15px 0;border-collapse:collapse;border-spacing:0;display:block;width:100%;overflow:auto;word-break:normal;word-break:keep-all}html body table th{font-weight:bold;color:#000}html body table td,html body table th{border:1px solid #d6d6d6;padding:6px 13px}html body dl{padding:0}html body dl dt{padding:0;margin-top:16px;font-size:1em;font-style:italic;font-weight:bold}html body dl dd{padding:0 16px;margin-bottom:16px}html body code{font-family:Menlo,Monaco,Consolas,'Courier New',monospace;font-size:.85em !important;color:#000;background-color:#f0f0f0;border-radius:3px;padding:.2em 0}html body code::before,html body code::after{letter-spacing:-0.2em;content:"\00a0"}html body pre>code{padding:0;margin:0;font-size:.85em !important;word-break:normal;white-space:pre;background:transparent;border:0}html body .highlight{margin-bottom:16px}html body .highlight pre,html body pre{padding:1em;overflow:auto;font-size:.85em !important;line-height:1.45;border:#d6d6d6;border-radius:3px}html body .highlight pre{margin-bottom:0;word-break:normal}html body pre code,html body pre tt{display:inline;max-width:initial;padding:0;margin:0;overflow:initial;line-height:inherit;word-wrap:normal;background-color:transparent;border:0}html body pre code:before,html body pre tt:before,html body pre code:after,html body pre tt:after{content:normal}html body p,html body blockquote,html body ul,html body ol,html body dl,html body pre{margin-top:0;margin-bottom:16px}html body kbd{color:#000;border:1px solid #d6d6d6;border-bottom:2px solid #c7c7c7;padding:2px 4px;background-color:#f0f0f0;border-radius:3px}@media print{html body{background-color:#fff}html body h1,html body h2,html body h3,html body h4,html body h5,html body h6{color:#000;page-break-after:avoid}html body blockquote{color:#5c5c5c}html body pre{page-break-inside:avoid}html body table{display:table}html body img{display:block;max-width:100%;max-height:100%}html body pre,html body code{word-wrap:break-word;white-space:pre}}.markdown-preview{width:100%;height:100%;box-sizing:border-box}.markdown-preview .pagebreak,.markdown-preview .newpage{page-break-before:always}.markdown-preview pre.line-numbers{position:relative;padding-left:3.8em;counter-reset:linenumber}.markdown-preview pre.line-numbers>code{position:relative}.markdown-preview pre.line-numbers .line-numbers-rows{position:absolute;pointer-events:none;top:1em;font-size:100%;left:0;width:3em;letter-spacing:-1px;border-right:1px solid #999;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}.markdown-preview pre.line-numbers .line-numbers-rows>span{pointer-events:none;display:block;counter-increment:linenumber}.markdown-preview pre.line-numbers .line-numbers-rows>span:before{content:counter(linenumber);color:#999;display:block;padding-right:.8em;text-align:right}.markdown-preview .mathjax-exps .MathJax_Display{text-align:center !important}.markdown-preview:not([for="preview"]) .code-chunk .btn-group{display:none}.markdown-preview:not([for="preview"]) .code-chunk .status{display:none}.markdown-preview:not([for="preview"]) .code-chunk .output-div{margin-bottom:16px}.scrollbar-style::-webkit-scrollbar{width:8px}.scrollbar-style::-webkit-scrollbar-track{border-radius:10px;background-color:transparent}.scrollbar-style::-webkit-scrollbar-thumb{border-radius:5px;background-color:rgba(150,150,150,0.66);border:4px solid rgba(150,150,150,0.66);background-clip:content-box}html body[for="html-export"]:not([data-presentation-mode]){position:relative;width:100%;height:100%;top:0;left:0;margin:0;padding:0;overflow:auto}html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{position:relative;top:0}@media screen and (min-width:914px){html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{padding:2em calc(50% - 457px)}}@media screen and (max-width:914px){html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{padding:2em}}@media screen and (max-width:450px){html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{font-size:14px !important;padding:1em}}@media print{html body[for="html-export"]:not([data-presentation-mode]) #sidebar-toc-btn{display:none}}html body[for="html-export"]:not([data-presentation-mode]) #sidebar-toc-btn{position:fixed;bottom:8px;left:8px;font-size:28px;cursor:pointer;color:inherit;z-index:99;width:32px;text-align:center;opacity:.4}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] #sidebar-toc-btn{opacity:1}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc{position:fixed;top:0;left:0;width:300px;height:100%;padding:32px 0 48px 0;font-size:14px;box-shadow:0 0 4px rgba(150,150,150,0.33);box-sizing:border-box;overflow:auto;background-color:inherit}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar{width:8px}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar-track{border-radius:10px;background-color:transparent}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar-thumb{border-radius:5px;background-color:rgba(150,150,150,0.66);border:4px solid rgba(150,150,150,0.66);background-clip:content-box}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc a{text-decoration:none}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc ul{padding:0 1.6em;margin-top:.8em}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc li{margin-bottom:.8em}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc ul{list-style-type:none}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{left:300px;width:calc(100% -  300px);padding:2em calc(50% - 457px -  150px);margin:0;box-sizing:border-box}@media screen and (max-width:1274px){html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{padding:2em}}@media screen and (max-width:450px){html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{width:100%}}html body[for="html-export"]:not([data-presentation-mode]):not([html-show-sidebar-toc]) .markdown-preview{left:50%;transform:translateX(-50%)}html body[for="html-export"]:not([data-presentation-mode]):not([html-show-sidebar-toc]) .md-sidebar-toc{display:none}
+/* Please visit the URL below for more information: */
+/*   https://shd101wyy.github.io/markdown-preview-enhanced/#/customize-css */
+ 
+      </style>
+    </head>
+    <body for="html-export">
+      <div class="mume markdown-preview   ">
+      <h4 class="mume-header" id="nfs%E8%BD%AF%E4%BB%B6">NFS软件</h4>
+
+<ul>
+<li>要部署NFS服务,必须安装下面两个软件包:<br>
+a. nfs-utils:NFS主程序,包含了两个守护进程：rpc.nfsd（管理客户机是否可以登录服务器）、<br>
+rpc.mountd(给用户令牌)以及相关的文档说明和执行命令文件<br>
+b. portmap： RPC主程序（CentOS6.4以后叫portmapper)</li>
+<li>服务器和客户机先通过rpc交互,获取服务器和客户端所使用的端口，也就是说服务器和客户端都要安装rpc</li>
+</ul>
+<ol>
+<li>检查NFS软件的安装情况</li>
+</ol>
+<pre data-role="codeBlock" data-info="" class="language-"><code>//&#x5BA2;&#x6237;&#x673A;&#x60C5;&#x51B5;
+[root@nfs-client ~]# rpm -qa &quot;rpcbind|nfs-utils&quot;
+nfs-utils-1.2.3-39.el6.x86_64
+rpcbind-0.2.0-11.el6.x86_64
+
+//&#x670D;&#x52A1;&#x5668;&#x60C5;&#x51B5;
+[root@nfs-server ~]# rpm -qa &quot;nfs-utils|rpcbind&quot;
+nfs-utils-1.2.3-39.el6.x86_64
+rpcbind-0.2.0-11.el6.x86_64
+nfs-utils-lib-1.1.5-6.el6.x86_64
+
+//&#x5982;&#x679C;&#x6CA1;&#x6709;&#x5B89;&#x88C5;&#xFF0C;&#x53EF;&#x4EE5;&#x901A;&#x8FC7;yum -y install nfs-utils protmap&#x6765;&#x5B89;&#x88C5;
+</code></pre><ol start="2">
+<li>查看服务启动状态</li>
+</ol>
+<pre data-role="codeBlock" data-info="" class="language-"><code>[root@nfs-server ~]# /etc/init.d/rpcbind status   //5.8&#x7684;&#x670D;&#x52A1;&#x540D;&#x662F;portmap
+rpcbind (pid  1396) &#x6B63;&#x5728;&#x8FD0;&#x884C;...
+[root@nfs-server ~]# /etc/init.d/nfs status   //&#x67E5;&#x770B;NFS&#x670D;&#x52A1;
+rpc.svcgssd &#x5DF2;&#x505C;
+rpc.mountd (pid 14538) &#x6B63;&#x5728;&#x8FD0;&#x884C;...
+nfsd (pid 14553 14552 14551 14550 14549 14548 14547 14546) &#x6B63;&#x5728;&#x8FD0;&#x884C;...
+rpc.rquotad (pid 14534) &#x6B63;&#x5728;&#x8FD0;&#x884C;...
+
+[root@nfs-server ~]# rpcinfo -p localhost   //&#x67E5;&#x770B;NFS&#x670D;&#x52A1;&#x5411;rpc&#x670D;&#x52A1;&#x6CE8;&#x518C;&#x7AEF;&#x53E3;&#x4FE1;&#x606F;
+   program vers proto   port  service
+    100000    4   tcp    111  portmapper
+    100000    3   tcp    111  portmapper
+    100000    2   tcp    111  portmapper
+    100000    4   udp    111  portmapper
+    100000    3   udp    111  portmapper
+    100000    2   udp    111  portmapper
+    100024    1   udp  53721  status
+    100024    1   tcp  56012  status
+    100011    1   udp    875  rquotad //rquotad&#x662F;&#x7BA1;&#x7406;&#x78C1;&#x76D8;&#x914D;&#x989D;&#x7684;
+    100011    2   udp    875  rquotad
+    100011    1   tcp    875  rquotad
+    100011    2   tcp    875  rquotad
+    100005    1   udp  55583  mountd
+    100005    1   tcp  54696  mountd
+    100005    2   udp  33969  mountd
+    100005    2   tcp  41187  mountd
+    100005    3   udp  57063  mountd
+    100005    3   tcp  48962  mountd
+    100003    2   tcp   2049  nfs
+    100003    3   tcp   2049  nfs
+    100003    4   tcp   2049  nfs
+    100227    2   tcp   2049  nfs_acl
+    100227    3   tcp   2049  nfs_acl
+    100003    2   udp   2049  nfs
+    100003    3   udp   2049  nfs
+    100003    4   udp   2049  nfs
+    100227    2   udp   2049  nfs_acl
+    100227    3   udp   2049  nfs_acl
+    100021    1   udp  59158  nlockmgr
+    100021    3   udp  59158  nlockmgr
+    100021    4   udp  59158  nlockmgr
+    100021    1   tcp  36062  nlockmgr
+    100021    3   tcp  36062  nlockmgr
+    100021    4   tcp  36062  nlockmgr
+</code></pre><ol start="3">
+<li>NFS服务端配置文件</li>
+</ol>
+<pre data-role="codeBlock" data-info="" class="language-"><code>//NFS&#x9ED8;&#x8BA4;&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#x662F;/etc/exportfs
+[root@nfs-server ~]# ll /etc/exports  //&#x6587;&#x4EF6;&#x5B58;&#x5728;&#x4F46;&#x662F;&#x5185;&#x5BB9;&#x662F;&#x7A7A;&#x7684;
+-rw-r--r--. 1 root root 0 Jan 12  2010 /etc/exports
+
+// /etc/exportfs&#x6587;&#x4EF6;&#x914D;&#x7F6E;&#x7684;&#x683C;&#x5F0F;&#xFF1A;
+NFS&#x5171;&#x4EAB;&#x76EE;&#x5F55;&#xFF08;&#x8981;&#x7528;&#x7EDD;&#x5BF9;&#x8DEF;&#x5F84;&#xFF09;    NFS&#x5BA2;&#x6237;&#x673A;&#x5730;&#x5740;1&#xFF08;&#x53C2;&#x6570;1&#xFF0C;&#x53C2;&#x6570;2...&#xFF09;  NFS&#x5BA2;&#x6237;&#x673A;&#x5730;&#x5740;2&#xFF08;&#x53C2;&#x6570;1&#xFF0C;&#x53C2;&#x6570;2...&#xFF09;
+
+1) NFS&#x5171;&#x4EAB;&#x76EE;&#x5F55;&#x4E3A;NFS&#x670D;&#x52A1;&#x7AEF;&#x8981;&#x5171;&#x4EAB;&#x7684;&#x5B9E;&#x9645;&#x76EE;&#x5F55;&#xFF0C;&#x8981;&#x7528;&#x7EDD;&#x5BF9;&#x8DEF;&#x5F84;
+2&#xFF09;NFS&#x5BA2;&#x6237;&#x7AEF;&#x5730;&#x5740;&#x4E3A;&#x670D;&#x52A1;&#x7AEF;&#x6388;&#x6743;&#x53EF;&#x4EE5;&#x8BBF;&#x95EE;&#x5171;&#x4EAB;&#x76EE;&#x5F55;&#x7684;NFS&#x5BA2;&#x6237;&#x7AEF;&#x5730;&#x5740;&#xFF0C;&#x53EF;&#x4EE5;&#x7528;&#x5355;&#x72EC;&#x7684;IP&#x5730;&#x5740;&#x6216;&#x8005;&#x4E3B;&#x673A;&#x540D;&#xFF0C;&#x57DF;&#x540D;&#x7B49;&#x7B49;&#xFF0C;&#x4E5F;&#x53EF;&#x4EE5;&#x4E3A;&#x6574;&#x4E2A;&#x7F51;&#x6BB5;&#x5730;&#x5740;&#xFF0C;
+&#x8FD8;&#x53EF;&#x4EE5;&#x7528;&#x201C;*&#x201D;&#x6765;&#x5339;&#x914D;&#x6240;&#x6709;&#x5BA2;&#x6237;&#x670D;&#x52A1;&#x5668;&#x53EF;&#x4EE5;&#x8BBF;&#x95EE;
+
+// &#x521B;&#x5EFA;&#x5171;&#x4EAB;&#x76EE;&#x5F55;&#x548C;&#x6587;&#x4EF6;hello
+[root@nfs-server ~]# mkdir /data/bbs -p
+[root@nfs-server ~]# cd /data/bbs
+[root@nfs-server bbs]# touch hello
+
+//&#x4FEE;&#x6539;&#x914D;&#x7F6E;&#x6587;&#x4EF6;
+[root@nfs-server ~]# vi /etc/exports
+/data/bbs 192.168.88.0/24(rw,sync)
+
+//&#x91CD;&#x65B0;&#x52A0;&#x8F7D;&#x914D;&#x7F6E;&#x6587;&#x4EF6;
+[root@nfs-server ~]# /etc/init.d/nfs reload
+
+</code></pre><ol start="4">
+<li>NFS客户机端要启动portmap服务（也就是rpcbind）</li>
+</ol>
+<pre data-role="codeBlock" data-info="" class="language-"><code>//&#x542F;&#x52A8;rpcbind&#xFF0C;&#x5E76;&#x67E5;&#x770B;&#x6267;&#x884C;&#x72B6;&#x6001;
+[root@nfs-client ~]# /etc/init.d/rpcbind  start
+&#x6B63;&#x5728;&#x542F;&#x52A8; rpcbind&#xFF1A;                                         [&#x786E;&#x5B9A;]
+[root@nfs-client ~]# service rpcbind status
+rpcbind (pid  12850) &#x6B63;&#x5728;&#x8FD0;&#x884C;...
+</code></pre><ol start="5">
+<li>客户机可以查看服务器的共享文件夹情况</li>
+</ol>
+<pre data-role="codeBlock" data-info="" class="language-"><code>// showmount -e SERVER_IP&#x53EF;&#x4EE5;&#x67E5;&#x770B;&#x670D;&#x52A1;&#x5668;&#x4E0A;&#x6709;&#x4EC0;&#x4E48;&#x5171;&#x4EAB;&#x76EE;&#x5F55;&#xFF0C;&#x5982;&#x679C;&#x4E0D;&#x540C;&#x5219;&#x662F;&#x670D;&#x52A1;&#x5668;&#x7684;&#x9632;&#x706B;&#x5899;&#x963B;&#x6B62;&#x4E86;&#xFF0C;&#x5173;&#x95ED;&#x9632;&#x706B;&#x5899;&#x5373;&#x53EF;
+[root@nfs-client ~]# showmount -e 192.168.88.30
+Export list for 192.168.88.30:
+/data/bbs 192.168.88.0/24
+</code></pre><ol start="6">
+<li>客户机挂在服务器共享目录（注意必须要在服务器端用chown -R nfsnobody.nfsnobody 命令给共享目录对应权限）</li>
+</ol>
+<pre data-role="codeBlock" data-info="" class="language-"><code>//&#x7528;mount -t nfs&#x6765;&#x6302;&#x8F7D;
+[root@nfs-client ~]# mount -t nfs 192.168.88.30:/data/bbs /mnt
+[root@nfs-client ~]# cd /mnt
+[root@localhost mnt]# ll
+&#x603B;&#x7528;&#x91CF; 4
+-rwxrwxrwx. 1 nfsnobody nfsnobody 0 9&#x6708;  13 14:24 abc  //&#x5BA2;&#x6237;&#x7AEF;&#x521B;&#x5EFA;&#x7684;&#x6587;&#x4EF6;&#x5C5E;&#x4E3B;&#x662F;nfsnobody
+-rwxrwxrwx. 1 root      root      6 9&#x6708;  13 14:21 hello  //&#x670D;&#x52A1;&#x5668;&#x7AEF;&#x521B;&#x5EFA;&#x7684;&#x6587;&#x4EF6;&#x5C5E;&#x4E3B;&#x662F;root
+
+[root@nfs-client ~]# df -h
+Filesystem               Size  Used Avail Use% Mounted on
+/dev/sda2                9.9G  3.4G  6.0G  37% /
+tmpfs                    935M  224K  935M   1% /dev/shm
+/dev/sda1                194M   30M  155M  16% /boot
+192.168.88.30:/data/bbs  9.9G  3.7G  5.8G  39% /mnt
+</code></pre><ol start="7">
+<li>此时在服务器端可以查看到客户的完整参数</li>
+</ol>
+<pre data-role="codeBlock" data-info="" class="language-"><code>[root@nfs-server bbs]#  cat /var/lib/nfs/etab
+/data/bbs	192.168.88.0/24(rw,sync,wdelay,hide,nocrossmnt,secure,root_squash,no_all_squash,no_subtree_check,secure_locks,acl,anonuid=65534,anongid=65534)
+
+// 65534&#x5C31;&#x662F;nfsnobody&#x7684;uid
+[root@nfs-server bbs]# grep 65534 /etc/passwd
+nfsnobody:x:65534:65534:Anonymous NFS User:/var/lib/nfs:/sbin/nologin
+</code></pre><ol start="8">
+<li>如果觉得nfsnobody用户不安全，我们可以指定一个用户，然后在/et/exports中修改客户端映射的用户</li>
+</ol>
+<pre data-role="codeBlock" data-info="" class="language-"><code>//&#x5047;&#x5982;&#x6211;&#x4EEC;&#x60F3;&#x628A;nfs&#x5BA2;&#x6237;&#x7AEF;&#x7528;&#x6237;&#x6620;&#x5C04;&#x4E3A;&#x670D;&#x52A1;&#x5668;&#x4E0A;&#x7684;aphey&#x7528;&#x6237;&#xFF08;&#x8FD9;&#x4E2A;&#x7528;&#x6237;&#x670D;&#x52A1;&#x5668;&#x548C;&#x5BA2;&#x6237;&#x7AEF;&#x5FC5;&#x987B;&#x540C;&#x65F6;&#x62E5;&#x6709;&#xFF0C;id&#x4E5F;&#x5FC5;&#x987B;&#x76F8;&#x540C;&#xFF09;&#xFF0C;&#x53EF;&#x4EE5;&#x8FDB;&#x884C;&#x4EE5;&#x4E0B;&#x64CD;&#x4F5C;
+[root@nfs-server ~]# id aphey
+uid=500(aphey) gid=500(aphey) groups=500(aphey)
+
+[root@nfs-server ~]# vi /etc/exports //&#x52A0;&#x4E0A;all_squash(&#x4E0D;&#x7BA1;&#x4F60;&#x5BA2;&#x6237;&#x7AEF;&#x7684;&#x7528;&#x6237;&#x662F;&#x4EC0;&#x4E48;&#xFF0C;&#x90FD;&#x7ED9;&#x4F60;&#x538B;&#x7F29;&#x6210;&#x540E;&#x9762;&#x8FD9;&#x4E2A;anonuid&#x7684;&#x6743;&#x9650;),anonuid=500,anongid=500&#x53C2;&#x6570;&#x5373;&#x53EF;
+/data/bbs 192.168.88.0/24(rw,sync&#xFF0C;all_squash,anonuid=500,anongid=500)
+
+[root@nfs-client mnt]# touch bcd  //&#x5728;&#x5BA2;&#x6237;&#x7AEF;&#x7684;&#x6302;&#x5728;&#x76EE;&#x5F55;&#x4E0B;&#x521B;&#x5EFA;bcd&#x6587;&#x4EF6;
+[root@nfs-client mnt]# ll  //&#x53D1;&#x73B0;bcd&#x7684;&#x5C5E;&#x4E3B;&#xFF08;&#x7EC4;&#xFF09;&#x53D8;&#x6210;aphey&#x4E86;
+&#x603B;&#x7528;&#x91CF; 4
+-rwxrwxrwx. 1 nfsnobody nfsnobody 0 9&#x6708;  13 14:58 abc
+-rw-r--r--. 1 aphey     aphey     0 9&#x6708;  13 14:58 bcd
+-rwxrwxrwx. 1 root      root      6 9&#x6708;  13 14:21 hello
+</code></pre><h4 class="mume-header" id="%E6%89%A9%E5%B1%95%E7%9F%A5%E8%AF%86">扩展知识</h4>
+
+<ul>
+<li>/usr/sbin/exportfs 命令，是NFS服务的管理命令，可以加载NFS配置生效，还可以直接配置NFS共享目录，即无需配置/etc/exports实现共享；这个命令只是临时生效；其实 /etc/init.d/nfs reload 就是调用<code>exportfs -rv</code>这个命令的<pre data-role="codeBlock" data-info="" class="language-"><code>//&#x5728;&#x670D;&#x52A1;&#x5668;&#x7AEF;&#x5171;&#x4EAB;/data/bbs&#x76EE;&#x5F55;,&#x4E34;&#x65F6;&#x751F;&#x6548;
+[root@nfs-server ~]# exportfs -o rw,sync,all_squash,anonuid=555,anongid=555 192.168.1.0/24:/data/bbs
+
+//
+
+</code></pre></li>
+<li>/var/lib/nfs/etab 文件,这个文件可以查看共享目录，对客户端的实际参数<pre data-role="codeBlock" data-info="" class="language-"><code>  [root@nfs-server skel]# cat /var/lib/nfs/etab
+/data/bbs	192.168.88.0/24(rw,sync,wdelay,hide,nocrossmnt,secure,no_root_squash,no_all_squash,no_subtree_check,secure_locks,acl,anonuid=500,anongid=500)
+</code></pre></li>
+<li>/var/lib/nfs/xtab，在CentOS5.8以前是记录客户端挂载的记录的，CentOS6.4以后，这个文件虽然还在，但是不起作用了，内容为空<pre data-role="codeBlock" data-info="" class="language-"><code>[root@nfs-client ~]# cat /var/lib/nfs/xtab
+</code></pre></li>
+<li>客户端挂载命令使开机自启动
+<ol>
+<li>/etc/rc.local里使用<code>mount -t nfs SERVER_IP:/SHARED_DIR /MOUNTED_DIR</code>来挂载，这个方法的缺点是，偶尔开机挂载不上，要对挂载点监控</li>
+<li>/etc/fstab配置，最好不要这么操作，原因是 fstab优先于网络自启动，此时还连不上NFS服务器端；即使是本地文件系统，也要注意fstab最后两列要设置为0 0.</li>
+</ol>
+</li>
+<li>oldboy的经验,通过/etc/rc.local来配置自启动，平时要通过nagios监控。<pre data-role="codeBlock" data-info="" class="language-"><code>//&#x5BA2;&#x6237;&#x673A;&#x914D;&#x7F6E;
+# rpcbind autostart config
+/etc/init.d/rpcbind start
+
+/bin/mount -t nfs NFS_SERVER_IP:/W_SHARED /MOUNTED_W_DIR
+/bin/mount -t nfs NFS_SERVER_IP:/R_SHARED /MOUNTED_R_DIR
+</code></pre></li>
+<li><strong>最好用rc.local来管理所有开机自启动的配置，形成一整套的启动档案</strong></li>
+<li>nfs设置客户端选项图解<br>
+<img src="..\markdownpics\nfs.png?0.987462132122116" alt=""></li>
+</ul>
+
+      </div>
+      <div class="md-sidebar-toc"><ul>
+<li><a href="#nfs%E8%BD%AF%E4%BB%B6">NFS软件</a></li>
+<li><a href="#%E6%89%A9%E5%B1%95%E7%9F%A5%E8%AF%86">扩展知识</a></li>
+</ul>
+</div>
+      <a id="sidebar-toc-btn">≡</a>
+    </body>
+    
+    
+    
+    
+    
+    
+    
+<script>
+
+var sidebarTOCBtn = document.getElementById('sidebar-toc-btn')
+sidebarTOCBtn.addEventListener('click', function(event) {
+  event.stopPropagation()
+  if (document.body.hasAttribute('html-show-sidebar-toc')) {
+    document.body.removeAttribute('html-show-sidebar-toc')
+  } else {
+    document.body.setAttribute('html-show-sidebar-toc', true)
+  }
+})
+</script>
+      
+  </html>
